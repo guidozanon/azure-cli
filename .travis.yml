@@ -15,10 +15,10 @@ jobs:
       env: PURPOSE='PEP8'
       script: ./scripts/ci/precheck_pep8.sh
       python: 3.6
-      #- stage: precheck
-      #env: PURPOSE='Headers'
-      #script: ./scripts/ci/precheck_header.sh
-      #python: 3.6
+    - stage: precheck
+      env: PURPOSE='Headers'
+      script: ./scripts/ci/precheck_header.sh
+      python: 3.6
     - stage: verify
       env: PURPOSE='Automation'
       script: ./scripts/ci/test_automation.sh

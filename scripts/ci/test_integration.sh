@@ -15,6 +15,6 @@ echo '=== List installed packages'
 pip freeze
 
 echo '=== Begin testing'
-azdev verify packages
+azdev verify package
 azdev verify commands
 azdev verify dependencies
