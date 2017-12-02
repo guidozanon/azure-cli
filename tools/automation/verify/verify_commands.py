@@ -37,7 +37,7 @@ def run_commands(_):
 
     pool = multiprocessing.Pool(multiprocessing.cpu_count())
     for i, res in enumerate(pool.imap_unordered(run_single_command, commands, 10), 1):
-        sys.stderr.write('{:2.2}% \n'.format(float(i) * 100 / len(commands)))
+        sys.stderr.write('{:.2f}% \n'.format(float(i) * 100 / len(commands)))
         sys.stderr.flush()
         results.append(res)
     pool.close()
@@ -55,14 +55,12 @@ def run_single_command(command):
     for i in range(3):  # retry the command 3 times
         try:
             subprocess.check_output(command.split(), stderr=subprocess.STDOUT, universal_newlines=True)
-
-            print('{} passed'.format(command))
             return True
         except subprocess.CalledProcessError as error:
             execution_error = error
             continue
 
     if execution_error:
-        sys.stderr.write('{} / {} \n'.format(execution_error.output, str(execution_error)))
+        sys.stderr.write('Failed {} -> \n{} / {} \n'.format(command, execution_error.output, str(execution_error)))
 
     return False
